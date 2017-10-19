@@ -1,0 +1,3 @@
+pyinstaller --windowed C:\Users\wguo\PycharmProjects\PyDownloader\pydownloader.py
+
+pyinstaller --onefile --windowed --icon=C:\Users\wguo\PycharmProjects\PyDownloader\pydownloader.ico C:\Users\wguo\PycharmProjects\PyDownloader\pydownloader.py

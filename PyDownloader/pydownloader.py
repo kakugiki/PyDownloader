@@ -15,7 +15,9 @@ class Downloader(QDialog):
     def __init__(self):
         QDialog.__init__(self)
 
-        systray_icon = QIcon("ESALogo.png")
+        self.setWindowIcon(QIcon('pydownloader.ico'))
+
+        systray_icon = QIcon("pydownloader.ico")
         systray = QSystemTrayIcon(systray_icon, self)
 
         menu = QMenu()
