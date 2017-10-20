@@ -2,14 +2,18 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 # from tkinter import messagebox
 import sys
+import configparser
+import os
+import inspect
+import usp_appsettings
 
 import urllib.request
 # import tkinter
 # import ctypes
 
-## hide tk main window
-#root = tkinter.Tk()
-#root.withdraw()
+# # hide tk main window
+# root = tkinter.Tk()
+# root.withdraw()
 
 class Downloader(QDialog):
     def __init__(self):
@@ -66,13 +70,15 @@ class Downloader(QDialog):
     def download(self):
         url = self.url.text()
         save_location = self.save_location.text()
+        download = usp_appsettings.appConfig.getSetting(self, "default", "download")
+
         if url != '':
             try:
                 urllib.request.urlretrieve(url, save_location, self.report)
                 QMessageBox.information(self, "Information", "Download completed")
                 self.progress.setValue(0)
                 self.url.setText("")
-                self.save_location.setText("")
+                self.save_location.setText(download)
             except Exception:
                 QMessageBox.warning(self, "Warning", "Download failed")
                 return
@@ -89,6 +95,12 @@ class Downloader(QDialog):
             percent = readsofar * 100 / totalsize
             self.progress.setValue(int(percent))
 
+    # def getSetting(self, config, key):
+    #     _config = configparser.ConfigParser()
+    #     _path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+    #     _config.read(_path + '/pydownloader.ini') # how to get python file name here?
+    #
+    #     return _config.get(config, key)
 
 app = QApplication(sys.argv)
 dlg = Downloader()
